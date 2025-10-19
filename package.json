@@ -1,0 +1,50 @@
+{
+  "name": "auth-template",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm env:load tsx watch src/http/server.ts",
+    "build": "tsup",
+    "start": "node dist/http/server.js",
+    "db:seed": "pnpm env:load prisma db seed",
+    "db:migrate": "pnpm env:load prisma migrate dev",
+    "db:studio": "pnpm env:load prisma studio",
+    "env:load": "dotenv -e .env --"
+  },
+  "keywords": [
+    "auth"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "@rocketseat/eslint-config": "^2.2.2",
+    "@types/node": "^24.8.1",
+    "dotenv-cli": "^10.0.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "prettier": "^3.6.2",
+    "prisma": "latest",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.6"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.1.0",
+    "@fastify/jwt": "^10.0.0",
+    "@fastify/swagger": "^9.5.2",
+    "@fastify/swagger-ui": "^5.2.3",
+    "@prisma/client": "^6.17.1",
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "better-auth": "^1.3.28",
+    "fastify": "^5.6.1",
+    "fastify-plugin": "^5.1.0",
+    "fastify-type-provider-zod": "^6.0.0",
+    "zod": "^4.1.12"
+  },
+  "prettier": "./prettier.mjs",
+  "eslintConfig": {
+    "extends": [
+      "./eslint.js"
+    ]
+  }
+}
