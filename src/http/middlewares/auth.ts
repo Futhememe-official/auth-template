@@ -2,15 +2,22 @@ import { FastifyInstance } from "fastify"
 import { fastifyPlugin } from "fastify-plugin"
 
 import { UnauthorizedError } from "../routes/_errors/unauthorized-error"
+import { auth } from "@/lib/auth"
 
-export const auth = fastifyPlugin(async (app: FastifyInstance) => {
+export const authMiddleware = fastifyPlugin(async (app: FastifyInstance) => {
   app.addHook("preHandler", async (request) => {
     request.getCurrentUserId = async () => {
       try {
-        const { sub } = await request.jwtVerify<{ sub: string }>()
+        const session = await auth.api.getSession({
+          headers: request.headers,
+        })
 
-        return sub
-      } catch {
+        if (!session?.user?.id) {
+          throw new UnauthorizedError("Invalid auth token")
+        }
+
+        return session.user.id
+      } catch (error) {
         throw new UnauthorizedError("Invalid auth token")
       }
     }
