@@ -13,6 +13,7 @@ import fastifyCors from "@fastify/cors"
 import { env } from "@/env"
 import { auth } from "@/lib/auth"
 import fastifyScalar from "@scalar/fastify-api-reference"
+import { getUser } from "./routes/example"
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -88,6 +89,7 @@ app.route({
 })
 
 // Routes
+app.register(getUser)
 
 // Init
 app.listen({ port: env.PORT }).then(() => {
