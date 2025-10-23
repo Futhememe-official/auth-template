@@ -112,3 +112,12 @@ model Invitation {
 
   @@map("invitation")
 }
+
+model Jwks {
+  id         String   @id
+  publicKey  String
+  privateKey String
+  createdAt  DateTime
+
+  @@map("jwks")
+}
