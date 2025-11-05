@@ -7,7 +7,6 @@ import {
 } from "fastify-type-provider-zod"
 import { errorHandler } from "./error-handler"
 import fastifySwagger from "@fastify/swagger"
-import fastifySwaggerUI from "@fastify/swagger-ui"
 import fastifyJwt from "@fastify/jwt"
 import fastifyCors from "@fastify/cors"
 import { env } from "@/env"
@@ -48,10 +47,12 @@ app.register(fastifyScalar, {
 })
 
 // Security
-app.register(fastifyJwt, {
-  secret: env.JWT_SECRET,
+app.register(fastifyCors, {
+  origin: ["http://localhost:3000"],
+  credentials: true,
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 })
-app.register(fastifyCors)
 
 // Auth Routes
 app.route({
